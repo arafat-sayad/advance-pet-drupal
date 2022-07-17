@@ -1,0 +1,15 @@
+shopify_api.products:
+  path: '/product-list'
+  defaults:
+    _controller: '\Drupal\shopify_api\Controller\ProductController::list'
+    _title: 'Product list'
+  requirements:
+    _permission: 'access content'
+
+shopify_api.productDetails:
+  path: '/product-details/{id}'
+  defaults:
+    _controller: '\Drupal\shopify_api\Controller\ProductController::details'
+    _title: 'Product Details'
+  requirements:
+    _permission: 'access content'

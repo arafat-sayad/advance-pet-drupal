@@ -1,0 +1,44 @@
+<?php
+
+function shopify_api_schema() {
+  $schema['products'] = [
+    'description' => 'Stores shopify products details',
+    'fields' => [
+        'id' => [
+          'type' => 'serial',
+          'not null' => TRUE,
+        ],
+        'shopify_product_id' => [
+          'type' => 'int',
+          'not null' => TRUE,
+        ],
+        'title' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+        ],
+        'price' => [
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+        ],
+    ],
+    'primary key' => ['id']
+  ];
+
+  return $schema;
+}
+
+function shopify_api_install() {
+  $rows = [
+    ['shopify_product_id' => '120564', 'title' => 't-shirt', 'price' => '100'],
+  ];
+
+  $db_connection = \Drupal::database();
+
+  if($db_connection->schema()->tableExists('products')){
+    foreach($rows as $row){
+      $db_connection->insert('products')->fields($row)->execute();
+    }
+  }
+}
